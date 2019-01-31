@@ -56,3 +56,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'graphiql-rails', '1.6.0', group: :development
+
+group :development, :test do
+  gem 'pry' # debugging
+  gem 'faker' # seed data
+end
