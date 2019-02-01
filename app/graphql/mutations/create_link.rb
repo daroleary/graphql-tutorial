@@ -1,22 +1,45 @@
-# GraphQL: mutation - create author, specifying name and age
+# GraphQL - in order to create link, first sign in
 # mutation {
-#   createLink(
-#     url: "http://npmjs.com/package/graphql-tools",
-#     description: "Best tools!",
-#   ) {
-#     id
-#     url
-#     description
-#   }
+# 	signinUser(
+#       email: {
+#         email: "rado@example.com",
+#         password: "12345"
+#       }
+# 	) {
+# 	  token
+#     user {
+#       id
+#     }
+# 	}
 # }
 #
-# GraphQL: response
+# GraphQL: mutation - create link, specify url and description, attached to signed in user
+# mutation {
+# 	createLink(
+# 		url: "http://localhost:3000/graphiql",
+# 		description: "Your testing playground",
+# 	) {
+# 	  id
+# 	  url
+# 	  description
+# 	  postedBy {
+# 	    id
+# 	    name
+# 	  }
+# 	}
+# }
+#
+# GraphQL: response data
 # {
 #   "data": {
 #     "createLink": {
-#       "id": "3",
-#       "url": "http://npmjs.com/package/graphql-tools",
-#       "description": "Best tools!"
+#       "id": "1",
+#       "url": "http://localhost:3000/graphiql",
+#       "description": "Your testing playground",
+#       "postedBy": {
+#         "id": "1",
+#         "name": "Radoslav Stankov"
+#       }
 #     }
 #   }
 # }
@@ -32,7 +55,7 @@ class Mutations::CreateLink < Mutations::BaseMutation
     Link.create!(
         description: description,
         url: url,
-        # user: context[:current_user] -> to be replaced with current_user
+        user: context[:current_user]
         )
   end
 end

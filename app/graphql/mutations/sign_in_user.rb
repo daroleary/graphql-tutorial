@@ -50,7 +50,10 @@ class Mutations::SignInUser < Mutations::BaseMutation
     # For Ruby on Rails >=5.2.x use:
     # crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base.byteslice(0..31))
+    # todo: use JWT in production
     token = crypt.encrypt_and_sign("user-id:#{ user.id }")
+
+    context[:session][:token] = token
 
     { user: user, token: token }
   end
