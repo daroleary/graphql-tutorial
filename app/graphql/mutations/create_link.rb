@@ -52,10 +52,23 @@ class Mutations::CreateLink < Mutations::BaseMutation
   type Types::LinkType
 
   def resolve(description:, url:)
-    Link.create!(
+
+    link = Link.new(
         description: description,
         url: url,
         user: context[:current_user]
-        )
+    )
+
+    if link.save
+      {
+          link: link,
+          errors: [],
+      }
+    else
+      {
+          link: nil,
+          errors: link.errors.full_messages
+      }
+    end
   end
 end

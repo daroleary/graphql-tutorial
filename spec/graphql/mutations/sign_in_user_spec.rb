@@ -4,7 +4,7 @@ require 'shoulda/matchers'
 RSpec.describe Mutations::SignInUser, type: :model do
 
   def perform(user: nil, **args)
-    Mutations::SignInUser.new(object: nil, context: {}).resolve(args)
+    Mutations::SignInUser.new(object: nil, context: { session: {} }).resolve(args)
   end
 
   describe "sign in user" do

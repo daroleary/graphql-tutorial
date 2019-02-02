@@ -36,13 +36,26 @@ class Mutations::CreateUser < Mutations::BaseMutation
   argument :name, String, required: true
   argument :auth_provider, AuthProviderSignupData, required: false
 
-  type Types::UserType
+  type UserType
 
   def resolve(name: nil, auth_provider: nil)
-    User.create!(
+
+    user = User.new(
         name: name,
         email: auth_provider&.[](:email)&.[](:email),
         password: auth_provider&.[](:email)&.[](:password)
     )
+
+    if user.save
+      {
+          user: user,
+          errors: [],
+      }
+    else
+      {
+          user: nil,
+          errors: user.errors.full_messages
+      }
+    end
   end
 end

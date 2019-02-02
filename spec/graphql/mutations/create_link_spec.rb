@@ -18,10 +18,11 @@ RSpec.describe Mutations::CreateLink, type: :model do
           user: user
       )
 
-      assert link.persisted?
-      assert_equal link.description, 'description'
-      assert_equal link.url, 'http://example.com'
-      assert_equal link.user, user
+      assert_empty link[:errors]
+      saved_link = link[:link]
+      assert_equal saved_link.description, 'description'
+      assert_equal saved_link.url, 'http://example.com'
+      assert_equal saved_link.user, user
     end
   end
 end

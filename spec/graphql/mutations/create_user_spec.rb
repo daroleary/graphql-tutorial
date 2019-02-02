@@ -20,9 +20,10 @@ RSpec.describe Mutations::CreateUser, type: :model do
           }
       )
 
-      assert user.persisted?
-      assert_equal user.name, 'Test User'
-      assert_equal user.email, 'email@example.com'
+      assert_empty user[:errors]
+      saved_user = user[:user]
+      assert_equal saved_user.name, 'Test User'
+      assert_equal saved_user.email, 'email@example.com'
     end
   end
 end
