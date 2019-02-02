@@ -28,7 +28,7 @@ class Mutations::CreateVote < Mutations::BaseMutation
 
   argument :link_id, ID, required: false
 
-  type Types::VoteType
+  type VoteType
 
   def resolve(link_id:)
     link = Link.find(link_id)

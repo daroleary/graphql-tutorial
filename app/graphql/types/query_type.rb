@@ -5,6 +5,8 @@ class Types::QueryType < Types::BaseObject
     description "gets all links"
   end
 
+  field :all_links, function: Resolvers::LinksSearch
+
   # GraphQL: query
   # {
   #   links {

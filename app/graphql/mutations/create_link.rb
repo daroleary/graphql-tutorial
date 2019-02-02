@@ -49,7 +49,7 @@ class Mutations::CreateLink < Mutations::BaseMutation
   argument :description, String, required: true
   argument :url, String, required: true
 
-  type Types::LinkType
+  type LinkType
 
   def resolve(description:, url:)
 
